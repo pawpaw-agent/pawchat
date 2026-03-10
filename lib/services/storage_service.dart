@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -129,7 +128,8 @@ class StorageService {
 
   /// Get messages for session
   List<Message> getMessages(String sessionId) {
-    return _messageBox.get(sessionId, defaultValue: []);
+    final messages = _messageBox.get(sessionId);
+    return messages ?? [];
   }
 
   /// Clear messages for session

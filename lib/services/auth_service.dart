@@ -1,7 +1,7 @@
 import 'dart:async';
 import '../models/gateway_config.dart';
 import 'storage_service.dart';
-import 'websocket_service.dart';
+import 'websocket_service.dart' as ws;
 
 /// AuthService - Backend service for authentication
 /// Responsible for: Device identity, token management, auth flow
@@ -61,11 +61,11 @@ class AuthService {
       // Wait for connection result
       final connected = await _wsService.connectionStream
           .firstWhere((state) => 
-            state == ConnectionState.connected || 
-            state == ConnectionState.error,
+            state == ws.ConnectionState.connected || 
+            state == ws.ConnectionState.error,
           );
       
-      if (connected == ConnectionState.connected) {
+      if (connected == ws.ConnectionState.connected) {
         await _wsService.disconnect();
         return true;
       }
