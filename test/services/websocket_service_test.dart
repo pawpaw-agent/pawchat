@@ -21,7 +21,7 @@ void main() {
     });
 
     test('should have initial disconnected state', () {
-      expect(service.state, ConnectionState.disconnected);
+      expect(service.state, WsConnectionState.disconnected);
     });
 
     test('should generate correct WebSocket URL', () {
