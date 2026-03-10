@@ -27,6 +27,15 @@ jobs:
       - name: Create Android project (v2 embedding)
         run: flutter create --platforms=android .
 
+      - name: Clear Flutter cache
+        run: |
+          flutter clean
+          rm -rf build/
+          rm -rf .dart_tool/
+          rm -rf .flutter-plugins
+          rm -rf .flutter-plugins-dependencies
+          rm -rf pubspec.lock
+
       - name: Install dependencies
         run: flutter pub get
 
