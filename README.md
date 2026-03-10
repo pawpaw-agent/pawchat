@@ -42,29 +42,51 @@
 
 ## Installation
 
-### Download Release
+### Method 1: Download Pre-built APK (Recommended)
 
-Download the latest APK from [GitHub Releases](https://github.com/pawpaw-agent/pawchat/releases).
+1. Go to [GitHub Releases](https://github.com/pawpaw-agent/pawchat/releases)
+2. Download the latest `app-release.apk`
+3. Install on Android device (enable "Unknown sources" if prompted)
 
-### Build from Source
+See [INSTALL.md](INSTALL.md) for detailed installation guide.
+
+### Method 2: Build from Source
+
+**Requirements:**
+- Flutter SDK 3.x
+- Android Studio / Android SDK
+- JDK 17+
+
+**Quick Build:**
 
 ```bash
 # Clone repository
 git clone https://github.com/pawpaw-agent/pawchat.git
 cd pawchat
 
+# Run build script
+chmod +x build-apk.sh
+./build-apk.sh
+
+# APKs will be in:
+# - build/app/outputs/flutter-apk/app-debug.apk
+# - build/app/outputs/flutter-apk/app-release.apk
+```
+
+**Manual Build:**
+
+```bash
 # Install dependencies
 flutter pub get
 
 # Generate Hive adapters
 flutter pub run build_runner build
 
-# Build debug APK
-flutter build apk --debug
-
 # Build release APK
 flutter build apk --release
 ```
+
+See [BUILDING.md](BUILDING.md) for complete build instructions.
 
 ## Usage
 
@@ -332,6 +354,8 @@ MIT License - See [LICENSE](LICENSE) file.
 - **Repository:** https://github.com/pawpaw-agent/pawchat
 - **Issues:** https://github.com/pawpaw-agent/pawchat/issues
 - **Releases:** https://github.com/pawpaw-agent/pawchat/releases
+- **Installation Guide:** [INSTALL.md](INSTALL.md)
+- **Building Guide:** [BUILDING.md](BUILDING.md)
 - **OpenClaw Docs:** https://docs.openclaw.ai
 
 ---
