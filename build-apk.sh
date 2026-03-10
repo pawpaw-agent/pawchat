@@ -36,6 +36,14 @@ fi
 echo -e "${GREEN}✓ In project directory${NC}"
 echo ""
 
+# Create Android project if not exists (Flutter v2 embedding)
+if [ ! -d "android" ]; then
+    echo -e "${YELLOW}Step 0: Creating Android project (v2 embedding)...${NC}"
+    flutter create --platforms=android .
+    echo -e "${GREEN}✓ Android project created${NC}"
+    echo ""
+fi
+
 # Install dependencies
 echo -e "${YELLOW}Step 1: Installing dependencies...${NC}"
 flutter pub get

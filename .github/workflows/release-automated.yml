@@ -26,7 +26,11 @@ jobs:
           channel: 'stable'
           cache: true
 
-      # Step 3: Install dependencies
+      # Step 3: Create Android project (v2 embedding)
+      - name: Create Android project
+        run: flutter create --platforms=android .
+
+      # Step 4: Install dependencies
       - name: Install dependencies
         run: flutter pub get
 

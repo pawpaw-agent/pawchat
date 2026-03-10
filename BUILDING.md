@@ -72,6 +72,9 @@ The script will:
 git clone https://github.com/pawpaw-agent/pawchat.git
 cd pawchat
 
+# Create Android project (if first build)
+flutter create --platforms=android .
+
 # Install dependencies
 flutter pub get
 
