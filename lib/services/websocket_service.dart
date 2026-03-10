@@ -206,7 +206,7 @@ class WebSocketService {
         );
       }
     } else {
-      _state = ConnectionState.error;
+      _state = WsConnectionState.error;
       _connectionController.add(_state);
     }
   }
@@ -214,14 +214,14 @@ class WebSocketService {
   /// Handle WebSocket error
   void _handleError(dynamic error) {
     print('WebSocket error: $error');
-    _state = ConnectionState.error;
+    _state = WsConnectionState.error;
     _connectionController.add(_state);
   }
 
   /// Handle WebSocket disconnect
   void _handleDisconnect() {
     print('WebSocket disconnected');
-    _state = ConnectionState.disconnected;
+    _state = WsConnectionState.disconnected;
     _connectionController.add(_state);
     _channel = null;
   }
@@ -230,7 +230,7 @@ class WebSocketService {
   Future<void> disconnect() async {
     await _channel?.sink.close();
     _channel = null;
-    _state = ConnectionState.disconnected;
+    _state = WsConnectionState.disconnected;
     _connectionController.add(_state);
   }
 
