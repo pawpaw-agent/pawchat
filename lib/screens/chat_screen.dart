@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/message.dart';
 import '../services/chat_service.dart';
-import '../services/websocket_service.dart' as ws;
+import '../services/websocket_service.dart';
 import '../widgets/message_bubble.dart';
 import '../widgets/message_input.dart';
 import '../widgets/connection_status.dart';
@@ -44,7 +44,7 @@ class _ChatScreenState extends State<ChatScreen> {
     _wsService.connectionStream.listen((state) {
       if (mounted) {
         setState(() {
-          _isConnected = state == ws.ConnectionState.connected;
+          _isConnected = state == WsConnectionState.connected;
         });
       }
     });

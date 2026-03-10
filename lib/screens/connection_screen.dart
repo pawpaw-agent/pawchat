@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/gateway_config.dart';
 import '../services/storage_service.dart';
-import '../services/websocket_service.dart' as ws;
+import '../services/websocket_service.dart';
 import 'chat_screen.dart';
 
 /// ConnectionScreen - Frontend UI component
@@ -68,10 +68,10 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
 
       // Wait for connection result
       await _wsService.connectionStream.firstWhere(
-        (state) => state == ws.ConnectionState.connected || state == ws.ConnectionState.error,
+        (state) => state == WsConnectionState.connected || state == WsConnectionState.error,
       );
 
-      if (mounted && _wsService.state == ws.ConnectionState.connected) {
+      if (mounted && _wsService.state == WsConnectionState.connected) {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (_) => const ChatScreen()),
         );
@@ -150,7 +150,7 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
                 controller: _hostController,
                 decoration: const InputDecoration(
                   labelText: 'Host IP',
-                  prefixIcon: Icon(Icons.ip),
+                  prefixIcon: Icon(Icons.wifi),
                   border: OutlineInputBorder(),
                   hintText: '192.168.1.100',
                 ),

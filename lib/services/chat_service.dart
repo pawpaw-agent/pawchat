@@ -1,7 +1,7 @@
 import 'dart:async';
 import '../models/message.dart';
 import '../models/session.dart';
-import 'websocket_service.dart' as ws;
+import 'websocket_service.dart';
 import 'storage_service.dart';
 
 /// ChatService - Backend service for chat operations
@@ -97,7 +97,7 @@ class ChatService {
 
   /// Send message
   Future<void> sendMessage(String content) async {
-    if (_wsService.state != ws.ConnectionState.connected) {
+    if (_wsService.state != WsConnectionState.connected) {
       throw Exception('Not connected to gateway');
     }
 

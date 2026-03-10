@@ -4,7 +4,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:uuid/uuid.dart';
 import '../models/gateway_config.dart';
 
-enum ConnectionState { disconnected, connecting, connected, error }
+enum WsConnectionState { disconnected, connecting, connected, error }
 
 /// WebSocketService - Backend service for WebSocket communication
 /// Responsible for: Connection management, message framing, protocol handling
@@ -14,19 +14,19 @@ class WebSocketService {
   WebSocketService._internal();
 
   WebSocketChannel? _channel;
-  ConnectionState _state = ConnectionState.disconnected;
+  WsConnectionState _state = WsConnectionState.disconnected;
   GatewayConfig? _currentGateway;
   
-  final _connectionController = StreamController<ConnectionState>.broadcast();
+  final _connectionController = StreamController<WsConnectionState>.broadcast();
   final _messageController = StreamController<Map<String, dynamic>>.broadcast();
   final _uuid = const Uuid();
 
   // Stream accessors
-  Stream<ConnectionState> get connectionStream => _connectionController.stream;
+  Stream<WsConnectionState> get connectionStream => _connectionController.stream;
   Stream<Map<String, dynamic>> get messageStream => _messageController.stream;
   
   // State accessors
-  ConnectionState get state => _state;
+  WsConnectionState get state => _state;
   GatewayConfig? get currentGateway => _currentGateway;
 
   // Protocol version (OpenClaw Gateway Protocol v3)
@@ -35,11 +35,11 @@ class WebSocketService {
 
   /// Connect to OpenClaw Gateway
   Future<void> connect(GatewayConfig gateway) async {
-    if (_state == ConnectionState.connected) {
+    if (_state == WsConnectionState.connected) {
       await disconnect();
     }
 
-    _state = ConnectionState.connecting;
+    _state = WsConnectionState.connecting;
     _currentGateway = gateway;
     _connectionController.add(_state);
 
@@ -58,7 +58,7 @@ class WebSocketService {
       await _performHandshake();
       
     } catch (e) {
-      _state = ConnectionState.error;
+      _state = WsConnectionState.error;
       _connectionController.add(_state);
       rethrow;
     }
@@ -132,7 +132,7 @@ class WebSocketService {
 
   /// Send WebSocket message
   void send(Map<String, dynamic> message) {
-    if (_channel != null && _state == ConnectionState.connected) {
+    if (_channel != null && _state == WsConnectionState.connected) {
       _channel!.sink.add(jsonEncode(message));
     }
   }
@@ -196,7 +196,7 @@ class WebSocketService {
   /// Handle connect response from gateway
   void _handleConnectResponse(Map<String, dynamic> response) {
     if (response['ok'] == true && response['payload']['type'] == 'hello-ok') {
-      _state = ConnectionState.connected;
+      _state = WsConnectionState.connected;
       _connectionController.add(_state);
       
       // Update gateway config with connection time
@@ -241,7 +241,7 @@ class WebSocketService {
         await Future.delayed(Duration(milliseconds: delayMs * (i + 1)));
         if (_currentGateway != null) {
           await connect(_currentGateway!);
-          if (_state == ConnectionState.connected) return;
+          if (_state == WsConnectionState.connected) return;
         }
       } catch (e) {
         if (i == retries - 1) rethrow;
