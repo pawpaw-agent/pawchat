@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../services/websocket_service.dart';
+import '../services/websocket_service.dart' as ws;
 
 /// ConnectionStatus - Frontend UI widget
 /// Displays current WebSocket connection status with visual indicator
@@ -8,11 +8,11 @@ class ConnectionStatus extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<ConnectionState>(
+    return StreamBuilder<ws.ConnectionState>(
       stream: WebSocketService().connectionStream,
       initialData: WebSocketService().state,
       builder: (context, snapshot) {
-        final state = snapshot.data ?? ConnectionState.disconnected;
+        final state = snapshot.data ?? ws.ConnectionState.disconnected;
         
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -37,7 +37,7 @@ class ConnectionStatus extends StatelessWidget {
               ),
               
               // Retry Button (shown on error)
-              if (state == ConnectionState.error)
+              if (state == ws.ConnectionState.error)
                 IconButton(
                   icon: const Icon(Icons.refresh, color: Colors.white, size: 18),
                   onPressed: () {
@@ -54,27 +54,27 @@ class ConnectionStatus extends StatelessWidget {
     );
   }
 
-  Color _getColor(ConnectionState state) {
+  Color _getColor(ws.ConnectionState state) {
     switch (state) {
-      case ConnectionState.connected:
+      case ws.ConnectionState.connected:
         return Colors.green.shade600;
-      case ConnectionState.connecting:
+      case ws.ConnectionState.connecting:
         return Colors.orange.shade600;
-      case ConnectionState.error:
+      case ws.ConnectionState.error:
         return Colors.red.shade600;
-      case ConnectionState.disconnected:
+      case ws.ConnectionState.disconnected:
         return Colors.grey.shade600;
     }
   }
 
-  Widget _buildStatusIndicator(ConnectionState state) {
+  Widget _buildStatusIndicator(ws.ConnectionState state) {
     switch (state) {
-      case ConnectionState.connected:
+      case ws.ConnectionState.connected:
         return const CircleAvatar(
           radius: 6,
           backgroundColor: Colors.white,
         );
-      case ConnectionState.connecting:
+      case ws.ConnectionState.connecting:
         return SizedBox(
           width: 12,
           height: 12,
@@ -83,13 +83,13 @@ class ConnectionStatus extends StatelessWidget {
             valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
           ),
         );
-      case ConnectionState.error:
+      case ws.ConnectionState.error:
         return const CircleAvatar(
           radius: 6,
           backgroundColor: Colors.white,
           child: Icon(Icons.close, size: 10, color: Colors.red),
         );
-      case ConnectionState.disconnected:
+      case ws.ConnectionState.disconnected:
         return CircleAvatar(
           radius: 6,
           backgroundColor: Colors.white.withOpacity(0.5),
@@ -97,15 +97,15 @@ class ConnectionStatus extends StatelessWidget {
     }
   }
 
-  String _getStatusText(ConnectionState state) {
+  String _getStatusText(ws.ConnectionState state) {
     switch (state) {
-      case ConnectionState.connected:
+      case ws.ConnectionState.connected:
         return 'Connected to Gateway';
-      case ConnectionState.connecting:
+      case ws.ConnectionState.connecting:
         return 'Connecting...';
-      case ConnectionState.error:
+      case ws.ConnectionState.error:
         return 'Connection failed - Tap to retry';
-      case ConnectionState.disconnected:
+      case ws.ConnectionState.disconnected:
         return 'Disconnected';
     }
   }

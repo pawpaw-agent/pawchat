@@ -94,7 +94,7 @@ class WebSocketService {
     );
     
     subscription.cancel();
-    return completer.future as Future<Map<String, dynamic>>;
+    return completer.future;
   }
 
   /// Build connect request frame
