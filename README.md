@@ -44,11 +44,18 @@
 
 ### Method 1: Download Pre-built APK (Recommended)
 
+**Automated builds!** APKs are automatically built and attached to releases.
+
 1. Go to [GitHub Releases](https://github.com/pawpaw-agent/pawchat/releases)
-2. Download the latest `app-release.apk`
-3. Install on Android device (enable "Unknown sources" if prompted)
+2. Find latest release (e.g., v1.0.1)
+3. Wait for GitHub Actions to complete (5-8 minutes)
+4. Download `PawChat-{version}-release.apk` from Assets
+5. Install on Android device (enable "Unknown sources" if prompted)
+
+**Check build status:** https://github.com/pawpaw-agent/pawchat/actions
 
 See [INSTALL.md](INSTALL.md) for detailed installation guide.
+See [AUTOMATED_BUILD.md](AUTOMATED_BUILD.md) for how automation works.
 
 ### Method 2: Build from Source
 
