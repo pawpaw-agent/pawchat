@@ -50,11 +50,11 @@ void main() {
     });
 
     test('should have all connection states', () {
-      expect(ConnectionState.values.length, 4);
-      expect(ConnectionState.values[0], ConnectionState.disconnected);
-      expect(ConnectionState.values[1], ConnectionState.connecting);
-      expect(ConnectionState.values[2], ConnectionState.connected);
-      expect(ConnectionState.values[3], ConnectionState.error);
+      expect(WsConnectionState.values.length, 4);
+      expect(WsConnectionState.values[0], WsConnectionState.disconnected);
+      expect(WsConnectionState.values[1], WsConnectionState.connecting);
+      expect(WsConnectionState.values[2], WsConnectionState.connected);
+      expect(WsConnectionState.values[3], WsConnectionState.error);
     });
   });
 
